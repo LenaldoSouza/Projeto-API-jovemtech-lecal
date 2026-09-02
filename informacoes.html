@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sobre o Oswaldo</title>
+
+  <link rel="icon" href="logoDaIA.png">
+
+  <style>
+    :root {
+      --fundo: #080b14;
+      --caixa: rgba(30, 41, 59, 0.75);
+      --caixa-secundaria: rgba(15, 23, 42, 0.75);
+      --texto: #f8fafc;
+      --apagado: #94a3b8;
+      --destaque: #38bdf8;
+      --destaque-secundario: #818cf8;
+      --borda: rgba(148, 163, 184, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(56, 189, 248, 0.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(129, 140, 248, 0.13),
+          transparent 30%
+        ),
+        var(--fundo);
+      color: var(--texto);
+      padding: 40px 20px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    /* Botão de voltar */
+
+    .voltar {
+      display: inline-block;
+      margin-bottom: 28px;
+      padding: 10px 16px;
+
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 10px;
+
+      background: rgba(30, 41, 59, 0.6);
+      color: #cbd5e1;
+
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+
+      transition: 0.25s ease;
+    }
+
+    .voltar:hover {
+      transform: translateX(-3px);
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--destaque);
+      color: var(--destaque);
+    }
+
+    /* Cabeçalho */
+
+    .cabecalho {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+
+      background: linear-gradient(
+        90deg,
+        var(--destaque),
+        var(--destaque-secundario)
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitulo {
+      margin: 0;
+      color: var(--apagado);
+      font-size: 15px;
+    }
+
+    /* Apresentação */
+
+    .perfil {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 28px;
+
+      padding: 28px;
+
+      background: var(--caixa);
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .foto-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .foto {
+      width: 240px;
+      height: 300px;
+
+      object-fit: cover;
+
+      border-radius: 16px;
+      border: 2px solid rgba(56, 189, 248, 0.35);
+
+      box-shadow:
+        0 0 30px rgba(56, 189, 248, 0.12),
+        0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .texto-perfil h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+    }
+
+    .texto-perfil p {
+      color: #cbd5e1;
+      line-height: 1.7;
+      margin: 0 0 14px;
+    }
+
+    .destaque {
+      color: var(--destaque);
+      font-weight: 700;
+    }
+
+    /* Cards de informações */
+
+    .titulo-secao {
+      margin: 35px 0 15px;
+      font-size: 21px;
+    }
+
+    .informacoes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .card {
+      padding: 20px;
+
+      background: var(--caixa);
+      border: 1px solid var(--borda);
+      border-radius: 15px;
+
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      background: rgba(37, 49, 70, 0.85);
+      border-color: rgba(56, 189, 248, 0.25);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+
+      font-size: 14px;
+      color: var(--destaque);
+
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .card p {
+      margin: 0;
+
+      color: #cbd5e1;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* Curiosidades */
+
+    .curiosidades {
+      margin-top: 15px;
+
+      padding: 22px;
+
+      background: var(--caixa-secundaria);
+      border: 1px solid var(--borda);
+      border-radius: 15px;
+    }
+
+    .curiosidades ul {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .curiosidades li {
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .curiosidades li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Frase */
+
+    .frase {
+      margin: 30px 0;
+
+      padding: 25px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.08),
+          rgba(129, 140, 248, 0.08)
+        );
+
+      border: 1px solid var(--borda);
+      border-radius: 15px;
+    }
+
+    .frase p {
+      margin: 0;
+
+      color: #cbd5e1;
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .frase span {
+      display: block;
+      margin-top: 10px;
+
+      color: var(--apagado);
+      font-size: 13px;
+    }
+
+    /* Rodapé */
+
+    footer {
+      margin-top: 30px;
+
+      text-align: center;
+
+      color: #64748b;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 25px 15px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .perfil {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .foto-container {
+        justify-content: center;
+      }
+
+      .informacoes {
+        grid-template-columns: 1fr;
+      }
+
+      .foto {
+        width: 210px;
+        height: 260px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <main>
+
+
+<a href="index.html" class="voltar">
+  ← Voltar para a parte séria
+</a>
+
+<header class="cabecalho">
+  <h1>Sobre o Oswaldo</h1>
+
+  <p class="subtitulo">
+    Uma investigação extremamente científica sobre o indivíduo mais
+    misterioso por trás desta inteligência artificial.
+  </p>
+</header>
+
+
+<section class="perfil">
+
+  <div class="foto-container">
+    <img
+      class="foto"
+      src="fotoRealDoOswaldoQueComCertezaNaoEODekuDeMHA.jpg"
+      alt="Foto extremamente real e legítima do Oswaldo"
+    >
+  </div>
+
+  <div class="texto-perfil">
+
+    <h2>Quem é Oswaldo?</h2>
+
+    <p>
+      Este é o
+      <span class="destaque">Oswaldo</span>.
+      Ou pelo menos é isso que os documentos oficiais afirmam.
+    </p>
+
+    <p>
+      Segundo fontes altamente confiáveis encontradas em um pedaço de
+      papel amassado, Oswaldo decidiu criar uma inteligência artificial
+      porque estava
+      <span class="destaque">entediado</span>.
+    </p>
+
+    <p>
+      A partir daí nasceu a
+      <span class="destaque">IA do Oswaldo</span>,
+      uma tecnologia revolucionária cuja principal função é explicar
+      coisas para pessoas que provavelmente poderiam pesquisar no Google.
+    </p>
+
+  </div>
+
+</section>
+
+
+<h2 class="titulo-secao">Informações básicas</h2>
+
+<section class="informacoes">
+
+  <div class="card">
+    <h3>Nome</h3>
+    <p>Oswaldo. Apenas Oswaldo. Não existem provas de que esse seja seu nome verdadeiro.</p>
+  </div>
+
+  <div class="card">
+    <h3>Idade</h3>
+    <p>Entre 6, 7 e aproximadamente 5000 anos. A documentação apresenta pequenas inconsistências.</p>
+  </div>
+
+  <div class="card">
+    <h3>Profissão</h3>
+    <p>Criador de inteligências artificiais quando está entediado.</p>
+  </div>
+
+  <div class="card">
+    <h3>Especialidade</h3>
+    <p>Transformar uma ideia aleatória em um projeto que funciona por algum motivo.</p>
+  </div>
+
+</section>
+
+
+<h2 class="titulo-secao">Curiosidades sobre Oswaldo</h2>
+
+<section class="curiosidades">
+
+  <ul>
+    <li>Oswaldo possui uma idade que desafia completamente a lógica humana.</li>
+
+    <li>
+      Há rumores de que ele consegue ficar entediado em menos de
+      37 segundos.
+    </li>
+
+    <li>
+      A criação desta IA começou aparentemente sem nenhuma razão
+      particularmente importante.
+    </li>
+
+    <li>
+      Oswaldo provavelmente sabe mais coisas do que esta página afirma.
+      Ou talvez não.
+    </li>
+
+    <li>
+      Ninguém sabe exatamente por que a IA se chama "IA do Oswaldo".
+      Aparentemente, o nome já estava decidido.
+    </li>
+
+    <li>
+      A foto acima é, obviamente, uma fotografia completamente legítima
+      do Oswaldo e não possui nenhuma relação com personagens de anime.
+    </li>
+  </ul>
+
+</section>
+
+
+<section class="frase">
+
+  <p>
+    "Se eu estou entediado, pelo menos alguém vai ter que usar essa IA."
+  </p>
+
+  <span>— Oswaldo, provavelmente</span>
+
+</section>
+
+
+<footer>
+  IA do Oswaldo™ — Criada durante um período crítico de tédio.<br>
+  Todas as informações desta página são 73% verificadas.
+</footer>
+
+
+  </main>
+
+</body>
+
+</html>

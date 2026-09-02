@@ -5,15 +5,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>IA do Oswaldo</title>
-  <link rel="Icon" href="logoDaIA.png">
+
+  <link rel="icon" href="logoDaIA.png">
 
   <style>
     :root {
       --fundo: #080b14;
       --fundo-secundario: #111827;
       --caixa: rgba(30, 41, 59, 0.75);
-      --caixa-hover: rgba(37, 49, 70, 0.9);
       --texto: #f8fafc;
       --apagado: #94a3b8;
       --destaque: #38bdf8;
@@ -29,16 +30,33 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
       background:
-        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.12), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.12), transparent 30%),
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(56, 189, 248, 0.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 80%,
+          rgba(129, 140, 248, 0.12),
+          transparent 30%
+        ),
         var(--fundo);
+
       color: var(--texto);
+
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 40px 20px;
+
+      padding: 50px 20px;
     }
 
     main {
@@ -50,43 +68,57 @@
 
     .cabecalho {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     h1 {
-      font-size: 42px;
-      margin: 0 0 10px;
+      font-size: 44px;
+      margin: 0 0 12px;
+
       font-weight: 800;
       letter-spacing: -1.5px;
+
       background: linear-gradient(
         90deg,
         var(--destaque),
         var(--destaque-secundario)
       );
+
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     p.subtitulo {
       color: var(--apagado);
-      margin: 0 auto;
+      margin: 0 auto 8px;
+
       line-height: 1.6;
-      max-width: 570px;
+
+      max-width: 590px;
+
       font-size: 15px;
     }
 
-    /* Card principal */
+    .descricao-ia {
+      font-size: 16px !important;
+      color: #cbd5e1 !important;
+    }
+
+    /* Parte principal */
 
     .painel {
       background: var(--caixa);
+
       border: 1px solid var(--borda);
       border-radius: 20px;
-      padding: 28px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
 
-    /* Formulário */
+      padding: 28px;
+
+      backdrop-filter: blur(14px);
+
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3);
+    }
 
     form {
       display: flex;
@@ -96,14 +128,22 @@
 
     input[type="text"] {
       flex: 1 1 300px;
+
       min-width: 0;
+
       padding: 15px 17px;
+
       border-radius: 12px;
       border: 1px solid #334155;
+
       outline: none;
+
       background: rgba(15, 23, 42, 0.8);
+
       color: var(--texto);
+
       font-size: 15px;
+
       transition: 0.2s ease;
     }
 
@@ -113,33 +153,47 @@
 
     input[type="text"]:focus {
       border-color: var(--destaque);
-      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+
+      box-shadow:
+        0 0 0 3px rgba(56, 189, 248, 0.12);
+
       background: rgba(15, 23, 42, 1);
     }
 
     button {
       border: none;
+
       padding: 15px 24px;
+
       border-radius: 12px;
+
       font-size: 15px;
       font-weight: 700;
+
       cursor: pointer;
+
       color: #07111f;
+
       background: linear-gradient(
         135deg,
         var(--destaque),
         var(--destaque-secundario)
       );
+
       transition:
         transform 0.2s ease,
         box-shadow 0.2s ease,
         opacity 0.2s ease;
-      box-shadow: 0 8px 22px rgba(56, 189, 248, 0.18);
+
+      box-shadow:
+        0 8px 22px rgba(56, 189, 248, 0.18);
     }
 
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.28);
+
+      box-shadow:
+        0 12px 28px rgba(56, 189, 248, 0.28);
     }
 
     button:active {
@@ -148,8 +202,11 @@
 
     button:disabled {
       opacity: 0.6;
+
       cursor: not-allowed;
+
       transform: none;
+
       box-shadow: none;
     }
 
@@ -157,13 +214,21 @@
 
     #resposta {
       margin-top: 22px;
+
       background: rgba(15, 23, 42, 0.75);
+
       border: 1px solid var(--borda);
+
       border-radius: 15px;
+
       padding: 22px;
+
       line-height: 1.7;
+
       white-space: pre-wrap;
+
       display: none;
+
       animation: aparecer 0.3s ease;
     }
 
@@ -173,35 +238,153 @@
 
     .rotulo {
       color: var(--destaque);
+
       font-size: 12px;
+
       font-weight: 700;
+
       text-transform: uppercase;
+
       letter-spacing: 0.08em;
+
       margin: 0 0 12px;
     }
 
     #texto {
       color: #e2e8f0;
+
       font-size: 15px;
     }
 
-    /* Aviso */
-
     #aviso {
       margin: 14px 2px 0;
+
       min-height: 22px;
+
       color: var(--erro);
+
       line-height: 1.5;
+
       font-size: 14px;
+    }
+
+    /* Separador */
+
+    .separador {
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+      margin: 45px 0 25px;
+
+      color: #475569;
+
+      font-size: 12px;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.1em;
+    }
+
+    .separador::before,
+    .separador::after {
+      content: "";
+
+      height: 1px;
+
+      flex: 1;
+
+      background: var(--borda);
+    }
+
+    /* Área das besteiras */
+
+    .area-besteiras {
+      text-align: center;
+
+      padding: 22px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(30, 41, 59, 0.45),
+          rgba(15, 23, 42, 0.45)
+        );
+
+      border: 1px solid rgba(129, 140, 248, 0.12);
+    }
+
+    .area-besteiras p {
+      margin: 0 0 15px;
+
+      color: #64748b;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+    .besteiras {
+      display: inline-block;
+
+      padding: 13px 21px;
+
+      border: 1px solid rgba(129, 140, 248, 0.4);
+
+      border-radius: 12px;
+
+      background: rgba(30, 41, 59, 0.8);
+
+      color: #cbd5e1;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: all 0.25s ease;
+
+      box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .besteiras:hover {
+      transform: translateY(-3px);
+
+      background: linear-gradient(
+        135deg,
+        #38bdf8,
+        #818cf8
+      );
+
+      color: #07111f;
+
+      border-color: transparent;
+
+      box-shadow:
+        0 10px 25px rgba(56, 189, 248, 0.25);
+    }
+
+    .besteiras:active {
+      transform: translateY(0);
     }
 
     /* Rodapé */
 
     .nota {
       margin: 22px 4px 0;
+
       color: #64748b;
+
       font-size: 13px;
+
       line-height: 1.6;
+
       text-align: center;
     }
 
@@ -210,11 +393,13 @@
     @keyframes aparecer {
       from {
         opacity: 0;
+
         transform: translateY(8px);
       }
 
       to {
         opacity: 1;
+
         transform: translateY(0);
       }
     }
@@ -222,17 +407,18 @@
     /* Responsividade */
 
     @media (max-width: 600px) {
+
       body {
-        padding: 25px 15px;
-        align-items: flex-start;
+        padding: 30px 15px;
       }
 
       h1 {
-        font-size: 34px;
+        font-size: 36px;
       }
 
       .painel {
         padding: 20px;
+
         border-radius: 16px;
       }
 
@@ -244,30 +430,45 @@
       button {
         width: 100%;
       }
+
+      .separador {
+        margin-top: 35px;
+      }
+
+      .besteiras {
+        width: 100%;
+      }
     }
   </style>
 
 </head>
 
 <body>
+
   <main>
 
+
 <div class="cabecalho">
-  <h1>IA do oswaldo</h1>
+
+  <h1>IA do Oswaldo</h1>
+
+  <p class="subtitulo descricao-ia">
+    Uma inteligência artificial desenvolvida para transformar
+    perguntas, conceitos e assuntos complexos em explicações
+    simples, claras e fáceis de entender.
+  </p>
 
   <p class="subtitulo">
-    Meu mano oswaldo criou essa IA porque estava entediado.
+    Digite uma pergunta ou um termo abaixo e deixe a IA fazer o trabalho.
   </p>
-  <p class="subtitulo">
-    Segue uma foto real do Oswaldo abaixo:
-  </p>
-  <img src="fotoRealDoOswaldoQueComCertezaNaoEODekuDeMHA.jpg" alt="Foto real do Oswaldo, ele é um femboy" width="150px">
-  <p class="subtitulo">femboy</p>
+
 </div>
+
 
 <div class="painel">
 
   <form id="formulario">
+
     <input
       type="text"
       id="termo"
@@ -279,16 +480,54 @@
     <button type="submit" id="botao">
       Explicar
     </button>
+
   </form>
 
+
   <div id="resposta">
-    <p class="rotulo" id="rotuloResposta">Explicação</p>
+
+    <p class="rotulo" id="rotuloResposta">
+      Explicação
+    </p>
+
     <div id="texto"></div>
+
   </div>
+
 
   <p id="aviso"></p>
 
 </div>
+
+
+<p class="nota">
+  A IA utiliza processamento em nuvem para gerar suas respostas.
+  O uso gratuito possui um limite diário por conta.
+</p>
+
+
+<div class="separador">
+  <span>Área não relacionada à IA</span>
+</div>
+
+
+<section class="area-besteiras">
+
+  <p>
+    Você já viu a parte séria.
+    Mas eu tava entediado e coloquei uma parte mais bobinha da atividade só pra criar o suposto Oswaldo.
+    Você não é obrigado a ver.
+  </p>
+
+  <a href="informacoes.html">
+    <input
+      type="button"
+      value="Visualizar as besteiras da página."
+      class="besteiras"
+    >
+  </a>
+
+</section>
 
   </main>
 
@@ -309,41 +548,67 @@
       evento.preventDefault();
 
       const termo = campoTermo.value.trim();
+
       if (termo === "") {
         return;
       }
 
-      // O estado de carregando importa mais aqui do que nos outros projetos.
-      // A resposta do modelo leva alguns segundos, e sem esse aviso a pessoa
-      // acha que a página travou e clica de novo, gastando a cota duas vezes.
       aviso.textContent = "";
+
       botao.disabled = true;
       botao.textContent = "Pensando...";
-      rotuloResposta.textContent = "Explicação sobre: " + termo;
-      texto.textContent = "Escrevendo a explicação, isso leva alguns segundos.";
+
+      rotuloResposta.textContent =
+        "Explicação sobre: " + termo;
+
+      texto.textContent =
+        "Escrevendo a explicação, isso leva alguns segundos.";
+
       resposta.classList.add("visivel");
 
       try {
-        const requisicao = await fetch(URL_DO_WORKER + "/explicar", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ termo: termo }),
-        });
+
+        const requisicao = await fetch(
+          URL_DO_WORKER + "/explicar",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+              termo: termo
+            }),
+          }
+        );
 
         const dados = await requisicao.json();
 
         if (!requisicao.ok) {
+
           resposta.classList.remove("visivel");
-          aviso.textContent = dados.erro || "Não consegui gerar a explicação.";
+
+          aviso.textContent =
+            dados.erro ||
+            "Não consegui gerar a explicação.";
+
           return;
         }
 
         texto.textContent = dados.explicacao;
+
       } catch (erro) {
+
         resposta.classList.remove("visivel");
-        aviso.textContent = "Não consegui falar com o Worker. Confira a URL no topo do script.";
+
+        aviso.textContent =
+          "Não consegui falar com o Worker. Confira a URL no topo do script.";
+
       } finally {
+
         botao.disabled = false;
+
         botao.textContent = "Explicar";
       }
     });

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explica Fácil</title>
+  <style>
+    :root {
+      --fundo: #0f172a;
+      --caixa: #1e293b;
+      --texto: #f8fafc;
+      --apagado: #94a3b8;
+      --destaque: #38bdf8;
+      --erro: #fca5a5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    main {
+      width: 100%;
+      max-width: 620px;
+    }
+
+    h1 {
+      font-size: 34px;
+      margin: 0 0 6px;
+    }
+
+    p.subtitulo {
+      color: var(--apagado);
+      margin: 0 0 26px;
+      line-height: 1.5;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      flex: 1 1 280px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: var(--caixa);
+      color: var(--texto);
+      font-size: 15px;
+    }
+
+    button {
+      background: var(--destaque);
+      color: #0f172a;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #7dd3fc;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #resposta {
+      margin-top: 26px;
+      background: var(--caixa);
+      border-radius: 12px;
+      padding: 20px 22px;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      display: none;
+    }
+
+    #resposta.visivel {
+      display: block;
+    }
+
+    .rotulo {
+      color: var(--apagado);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0 0 10px;
+    }
+
+    #aviso {
+      margin-top: 18px;
+      min-height: 22px;
+      color: var(--erro);
+      line-height: 1.5;
+    }
+
+    .nota {
+      margin-top: 34px;
+      color: var(--apagado);
+      font-size: 14px;
+      line-height: 1.6;
+      border-top: 1px solid #1e293b;
+      padding-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Explica Fácil</h1>
+    <p class="subtitulo">
+      Escreva um termo ou uma pergunta e receba uma explicação em linguagem
+      simples, gerada por um modelo de inteligência artificial que roda na nuvem.
+    </p>
+
+    <form id="formulario">
+      <input type="text" id="termo" placeholder="Por exemplo: o que é uma API" maxlength="200" required>
+      <button type="submit" id="botao">Explicar</button>
+    </form>
+
+    <div id="resposta">
+      <p class="rotulo" id="rotuloResposta">Explicação</p>
+      <div id="texto"></div>
+    </div>
+
+    <p id="aviso"></p>
+
+    <p class="nota">
+      O uso gratuito da inteligência artificial tem um limite diário por conta.
+      Ele é suficiente para construir e demonstrar, mas não para ficar testando
+      sem parar. Faça perguntas pontuais.
+    </p>
+  </main>
+
+  <script>
+    // Troque o texto abaixo pela URL do SEU Worker (termina em .workers.dev).
+    // Não deixe a barra no final.
+    const URL_DO_WORKER = "https://atividade-lecal.lenaldo-souza.workers.dev";
+
+    const formulario = document.getElementById("formulario");
+    const campoTermo = document.getElementById("termo");
+    const botao = document.getElementById("botao");
+    const resposta = document.getElementById("resposta");
+    const rotuloResposta = document.getElementById("rotuloResposta");
+    const texto = document.getElementById("texto");
+    const aviso = document.getElementById("aviso");
+
+    formulario.addEventListener("submit", async function (evento) {
+      evento.preventDefault();
+
+      const termo = campoTermo.value.trim();
+      if (termo === "") {
+        return;
+      }
+
+      // O estado de carregando importa mais aqui do que nos outros projetos.
+      // A resposta do modelo leva alguns segundos, e sem esse aviso a pessoa
+      // acha que a página travou e clica de novo, gastando a cota duas vezes.
+      aviso.textContent = "";
+      botao.disabled = true;
+      botao.textContent = "Pensando...";
+      rotuloResposta.textContent = "Explicação sobre: " + termo;
+      texto.textContent = "Escrevendo a explicação, isso leva alguns segundos.";
+      resposta.classList.add("visivel");
+
+      try {
+        const requisicao = await fetch(URL_DO_WORKER + "/explicar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ termo: termo }),
+        });
+
+        const dados = await requisicao.json();
+
+        if (!requisicao.ok) {
+          resposta.classList.remove("visivel");
+          aviso.textContent = dados.erro || "Não consegui gerar a explicação.";
+          return;
+        }
+
+        texto.textContent = dados.explicacao;
+      } catch (erro) {
+        resposta.classList.remove("visivel");
+        aviso.textContent = "Não consegui falar com o Worker. Confira a URL no topo do script.";
+      } finally {
+        botao.disabled = false;
+        botao.textContent = "Explicar";
+      }
+    });
+  </script>
+</body>
+
+</html>

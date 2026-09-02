@@ -1,18 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explica Fácil</title>
+
   <style>
     :root {
-      --fundo: #0f172a;
-      --caixa: #1e293b;
+      --fundo: #080b14;
+      --fundo-secundario: #111827;
+      --caixa: rgba(30, 41, 59, 0.75);
+      --caixa-hover: rgba(37, 49, 70, 0.9);
       --texto: #f8fafc;
       --apagado: #94a3b8;
       --destaque: #38bdf8;
+      --destaque-secundario: #818cf8;
       --erro: #fca5a5;
+      --borda: rgba(148, 163, 184, 0.15);
     }
 
     * {
@@ -22,74 +28,141 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, sans-serif;
-      background: var(--fundo);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.12), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.12), transparent 30%),
+        var(--fundo);
       color: var(--texto);
       display: flex;
       justify-content: center;
+      align-items: center;
       padding: 40px 20px;
     }
 
     main {
       width: 100%;
-      max-width: 620px;
+      max-width: 680px;
+    }
+
+    /* Cabeçalho */
+
+    .cabecalho {
+      text-align: center;
+      margin-bottom: 28px;
     }
 
     h1 {
-      font-size: 34px;
-      margin: 0 0 6px;
+      font-size: 42px;
+      margin: 0 0 10px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      background: linear-gradient(
+        90deg,
+        var(--destaque),
+        var(--destaque-secundario)
+      );
+      -webkit-text-fill-color: transparent;
     }
 
     p.subtitulo {
       color: var(--apagado);
-      margin: 0 0 26px;
-      line-height: 1.5;
+      margin: 0 auto;
+      line-height: 1.6;
+      max-width: 570px;
+      font-size: 15px;
     }
+
+    /* Card principal */
+
+    .painel {
+      background: var(--caixa);
+      border: 1px solid var(--borda);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Formulário */
 
     form {
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     input[type="text"] {
-      flex: 1 1 280px;
-      padding: 12px 14px;
-      border-radius: 10px;
+      flex: 1 1 300px;
+      min-width: 0;
+      padding: 15px 17px;
+      border-radius: 12px;
       border: 1px solid #334155;
-      background: var(--caixa);
+      outline: none;
+      background: rgba(15, 23, 42, 0.8);
       color: var(--texto);
       font-size: 15px;
+      transition: 0.2s ease;
+    }
+
+    input[type="text"]::placeholder {
+      color: #64748b;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--destaque);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+      background: rgba(15, 23, 42, 1);
     }
 
     button {
-      background: var(--destaque);
-      color: #0f172a;
       border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
+      padding: 15px 24px;
+      border-radius: 12px;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
+      color: #07111f;
+      background: linear-gradient(
+        135deg,
+        var(--destaque),
+        var(--destaque-secundario)
+      );
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+      box-shadow: 0 8px 22px rgba(56, 189, 248, 0.18);
     }
 
     button:hover {
-      background: #7dd3fc;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(56, 189, 248, 0.28);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
 
     button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
     }
 
+    /* Resposta */
+
     #resposta {
-      margin-top: 26px;
-      background: var(--caixa);
-      border-radius: 12px;
-      padding: 20px 22px;
-      line-height: 1.65;
+      margin-top: 22px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--borda);
+      border-radius: 15px;
+      padding: 22px;
+      line-height: 1.7;
       white-space: pre-wrap;
       display: none;
+      animation: aparecer 0.3s ease;
     }
 
     #resposta.visivel {
@@ -97,56 +170,128 @@
     }
 
     .rotulo {
-      color: var(--apagado);
-      font-size: 13px;
+      color: var(--destaque);
+      font-size: 12px;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin: 0 0 10px;
+      letter-spacing: 0.08em;
+      margin: 0 0 12px;
     }
 
+    #texto {
+      color: #e2e8f0;
+      font-size: 15px;
+    }
+
+    /* Aviso */
+
     #aviso {
-      margin-top: 18px;
+      margin: 14px 2px 0;
       min-height: 22px;
       color: var(--erro);
       line-height: 1.5;
+      font-size: 14px;
     }
 
+    /* Rodapé */
+
     .nota {
-      margin-top: 34px;
-      color: var(--apagado);
-      font-size: 14px;
+      margin: 22px 4px 0;
+      color: #64748b;
+      font-size: 13px;
       line-height: 1.6;
-      border-top: 1px solid #1e293b;
-      padding-top: 16px;
+      text-align: center;
+    }
+
+    /* Animação */
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsividade */
+
+    @media (max-width: 600px) {
+      body {
+        padding: 25px 15px;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .painel {
+        padding: 20px;
+        border-radius: 16px;
+      }
+
+      form {
+        flex-direction: column;
+      }
+
+      input[type="text"],
+      button {
+        width: 100%;
+      }
     }
   </style>
+
 </head>
 
 <body>
   <main>
-    <h1>Explica Fácil</h1>
-    <p class="subtitulo">
-      Escreva um termo ou uma pergunta e receba uma explicação em linguagem
-      simples, gerada por um modelo de inteligência artificial que roda na nuvem.
-    </p>
 
-    <form id="formulario">
-      <input type="text" id="termo" placeholder="Por exemplo: o que é uma API" maxlength="200" required>
-      <button type="submit" id="botao">Explicar</button>
-    </form>
+```
+<div class="cabecalho">
+  <h1>Explica Fácil</h1>
 
-    <div id="resposta">
-      <p class="rotulo" id="rotuloResposta">Explicação</p>
-      <div id="texto"></div>
-    </div>
+  <p class="subtitulo">
+    Escreva um termo ou uma pergunta e receba uma explicação em linguagem
+    simples, gerada por um modelo de inteligência artificial que roda na nuvem.
+  </p>
+</div>
 
-    <p id="aviso"></p>
+<div class="painel">
 
-    <p class="nota">
-      O uso gratuito da inteligência artificial tem um limite diário por conta.
-      Ele é suficiente para construir e demonstrar, mas não para ficar testando
-      sem parar. Faça perguntas pontuais.
-    </p>
+  <form id="formulario">
+    <input
+      type="text"
+      id="termo"
+      placeholder="Por exemplo: o que é uma API"
+      maxlength="200"
+      required
+    >
+
+    <button type="submit" id="botao">
+      Explicar
+    </button>
+  </form>
+
+  <div id="resposta">
+    <p class="rotulo" id="rotuloResposta">Explicação</p>
+    <div id="texto"></div>
+  </div>
+
+  <p id="aviso"></p>
+
+</div>
+
+<p class="nota">
+  O uso gratuito da inteligência artificial tem um limite diário por conta.
+  Ele é suficiente para construir e demonstrar, mas não para ficar testando
+  sem parar. Faça perguntas pontuais.
+</p>
+```
+
   </main>
 
   <script>
@@ -205,6 +350,7 @@
       }
     });
   </script>
+
 </body>
 
 </html>
